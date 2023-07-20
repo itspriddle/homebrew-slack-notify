@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+: "${VERSION:?Must specify version}"
+
+SHASUM=$(
+  curl -sL "https://github.com/itspriddle/slack-notify/archive/$VERSION.tar.gz" |
+    shasum -a 256 |
+    awk '{ print $1 }'
+)
+
+template() {
+  cat <<-'EOF'
+class SlackNotify < Formula
+  version "{VERSION}"
+
+  homepage "https://github.com/itspriddle/slack-notify"
+  url      "https://github.com/itspriddle/slack-notify/archive/v#{version}.tar.gz"
+  sha256   "{SHASUM}"
+
+  head "https://github.com/itspriddle/slack-notify.git"
+
+  def install
+    bin.install "bin/slack-notify"
+    man1.install "share/man/man1/slack-notify.1"
+  end
+end
+EOF
+}
+
+sed -E \
+  -e "s/{VERSION}/$VERSION/" \
+  -e "s/{SHASUM}/$SHASUM/" \
+  <(template) \
+  > "${0%/*}/../../Formula/slack-notify.rb"

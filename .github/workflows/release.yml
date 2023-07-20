@@ -1,0 +1,20 @@
+# gh workflow run release.yml -f version=v0.0.1 -R itspriddle/homebrew-slack-notify
+on:
+  repository_dispatch:
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          mkdir -p Formula
+
+          ./.github/scripts/update-formula
+
+          git config --global user.name 'Joshua Priddle'
+          git config --global user.email 'jpriddle@me.com'
+          git add Formula/slack-notify.rb
+          git commit -m "Updated slack-notify to $VERSION"
+          git push origin master
