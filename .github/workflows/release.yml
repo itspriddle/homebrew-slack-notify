@@ -1,6 +1,10 @@
 # gh workflow run release.yml -f version=v0.0.1 -R itspriddle/homebrew-slack-notify
 on:
   workflow_dispatch:
+    tags:
+        description: 'Version'
+        required: true
+        type: string
 
 jobs:
   update-formula:
