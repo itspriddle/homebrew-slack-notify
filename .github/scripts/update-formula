@@ -10,14 +10,13 @@ SHASUM=$(
     awk '{ print $1 }'
 )
 
-template() {
-  cat <<-'EOF'
+cat <<EOF > "${0%/*}/../../Formula/slack-notify.rb"
 class SlackNotify < Formula
-  version "{VERSION}"
+  version "${VERSION#v}"
 
   homepage "https://github.com/itspriddle/slack-notify"
   url      "https://github.com/itspriddle/slack-notify/archive/v#{version}.tar.gz"
-  sha256   "{SHASUM}"
+  sha256   "$SHASUM"
 
   head "https://github.com/itspriddle/slack-notify.git"
 
@@ -27,10 +26,3 @@ class SlackNotify < Formula
   end
 end
 EOF
-}
-
-sed -E \
-  -e "s/{VERSION}/$VERSION/" \
-  -e "s/{SHASUM}/$SHASUM/" \
-  <(template) \
-  > "${0%/*}/../../Formula/slack-notify.rb"
