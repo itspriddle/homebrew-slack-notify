@@ -12,15 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - env:
-          VERSION: ${{ github.event.client_payload.version }}
         run: |
           mkdir -p Formula
 
-          ./.github/scripts/update-formula
+          VERSION='${{ github.event.client_payload.version }}' ./.github/scripts/update-formula
 
           git config --global user.name 'Joshua Priddle'
           git config --global user.email 'jpriddle@me.com'
           git add Formula/slack-notify.rb
-          git commit -m "Updated slack-notify to $VERSION"
+          git commit -m 'Updated slack-notify to ${{ github.event.client_payload.version }}'
           git push origin master
