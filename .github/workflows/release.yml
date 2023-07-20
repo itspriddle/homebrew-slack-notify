@@ -16,10 +16,10 @@ jobs:
         run: |
           mkdir -p Formula
 
-          VERSION='${{ github.event.client_payload.version }}' ./.github/scripts/update-formula
+          VERSION='${{ github.event.inputs.version }}' ./.github/scripts/update-formula
 
           git config --global user.name 'Joshua Priddle'
           git config --global user.email 'jpriddle@me.com'
           git add Formula/slack-notify.rb
-          git commit -m 'Updated slack-notify to ${{ github.event.client_payload.version }}'
+          git commit -m 'Updated slack-notify to ${{ github.event.inputs.version }}'
           git push origin master
