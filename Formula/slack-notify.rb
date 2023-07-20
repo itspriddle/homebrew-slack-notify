@@ -1,9 +1,9 @@
 class SlackNotify < Formula
-  version "0.0.2-test"
+  version "0.0.2"
 
   homepage "https://github.com/itspriddle/slack-notify"
   url      "https://github.com/itspriddle/slack-notify/archive/v#{version}.tar.gz"
-  sha256   "4d27e32b20db870a3655b2bcdd0d27b10a5f7832bbbdbcf413f44e4d225a9c09"
+  sha256   "2cfbed59688dbc74a1341b09f885216bf3bddd8302853cb3f4911f73373eafd4"
 
   head "https://github.com/itspriddle/slack-notify.git"
 
